@@ -1,0 +1,79 @@
+<%- include("partials/header") -%>
+<%- include("partials/nav") -%>
+
+<div class="container" style="font-family: 'Nunito', sans-serif;">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#edit">Edit Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" data-toggle="tab" href="#change">Change Password</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#menu1">Push Notifications</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#menu2">Manage Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#menu3">Privacy and Security</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#menu4">Login Activity</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="tab" href="#menu5">Email and SMS</a>
+        </li>
+      </ul>
+    
+      <div class="tab-content">
+        <div id="edit" class="container tab-pane active"><br>
+          <form action="/editprof" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <p><b>Change Profile Photo</b><input type="file" name="image" id="file" style="padding-left: 5px;"></p>
+            </div>
+            <div class="form-group">
+                <label><b>Name</b></label>
+                <input type="text" class="form-control" name="fullnameup" value="<%= fullname %>">
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="usernameup" value="<%= username %>">
+            </div>
+            <div class="form-group">
+                <label><b>Bio</b></label>
+                <textarea class="form-control" name="bioup" rows="4"><%= bio %></textarea>
+            </div>
+            <div class="form-group">
+                <label><b>Email</b></label>
+                <input type="email" class="form-control" name="emailup" value="<%= email %>">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-left: 0;width: 100px;">Submit</button>
+          </form>
+          <br>
+        </div>
+        <div id="change" class="container tab-pane fade">
+        </div>
+        <div id="menu1" class="container tab-pane fade">
+        </div>
+        <div id="menu2" class="container tab-pane fade">
+        </div>
+        <div id="menu3" class="container tab-pane fade">
+        </div>
+        <div id="menu4" class="container tab-pane fade">
+        </div>
+        <div id="menu5" class="container tab-pane fade">
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+  var uploadField = document.getElementById("file");
+
+  uploadField.onchange = function() {
+      if(this.files[0].size > 1572864){
+        alert("Image is too big!");
+        this.value = "";
+      };
+  };
+</script>
+</html>

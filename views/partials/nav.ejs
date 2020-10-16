@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-sm bg-light" style="padding: 0;position: fixed;top: 0;width:100%;z-index:10;">
+    <div class="container">
+    <a class="navbar-brand logo" href="/home?uname=<%= username %>&fname=<%= fullname %>" style="font-size: 2rem;">Picstagram</a>
+    <form class="form-inline mx-auto search" action="/search?uname=<%= username %>&fname=<%= fullname %>" method="POST">
+        <input class="form-control" type="text" placeholder="Search" name="findAcc">
+        <button class="form-control btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <ul class="navbar-nav ml-auto desk-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/home?uname=<%= username %>&fname=<%= fullname %>"><i class="fas fa-home fa-lg" style="margin: 0;"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/message?uname=<%= username %>&fname=<%= fullname %>"><i class="fab fa-telegram-plane fa-lg"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/create?uname=<%= username %>&fname=<%= fullname %>" style="margin-right: 6px;"><i class="fas fa-plus add"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/explore?uname=<%= username %>&fname=<%= fullname %>"><i class="far fa-compass fa-lg" style="margin: 0;"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="far fa-heart fa-lg"></i></a>
+        </li>
+        <li class="nav-item last-item">
+            <div class="dropdown">
+                <i class="fas fa-user-circle fa-lg" data-toggle="dropdown" style="position: absolute; top: 12px; cursor: pointer;margin: 0;"></i>
+                <div class="dropdown-menu" style="position: absolute;right: -45px; left: auto;top: 46px;">
+                  <a class="dropdown-item" href="/profile?uname=<%= username %>&fname=<%= fullname %>" style="padding-left: 10px;padding-right: 50px;"><i class="fas fa-user-circle fa-fw"></i> Profile</a>
+                  <a class="dropdown-item" href="#" style="padding-left: 10px;padding-right: 50px;"><i class="far fa-bookmark fa-fw"></i> Saved</a>
+                  <a class="dropdown-item" style="padding-left: 10px;padding-right: 50px;color: lightslategrey;"><i class="fas fa-cog fa-fw" style="padding: 0;"></i> Settings</a>
+                  <hr style="margin: 5px 0;">
+                  <a class="dropdown-item" href="/logout" style="padding-left: 10px;padding-right: 50px;">Logout</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    </div>
+</nav>

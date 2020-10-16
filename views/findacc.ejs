@@ -1,0 +1,194 @@
+<%- include("partials/header") -%>
+<%- include("partials/nav") -%>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 15px;">
+        <div class="modal-body" style="color: #F10D2C;">
+            Block this user
+        </div>
+        <div class="modal-body" style="color: #F10D2C;">
+            Restrict
+        </div>
+        <div class="modal-body" style="color: #F10D2C;">
+            Report User
+        </div>
+        <button class="modal-body btn" style="border: none;" data-dismiss="modal" type="button">
+            Cancel
+        </button>
+      </div>
+    </div>
+</div>
+
+<div class="container home-main" style="margin-top:75px;">
+    <div class="row top-part">
+        <div class="col-sm-4 col-4 pp">
+            <center>
+                <img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" alt="profile pic" class="profile-pic" height="150" width="150">
+            </center>
+        </div>
+        <div class="col-sm-8 col-8 pp">
+            <h2><%= accusername %> 
+            <% if(followers.includes(username)){ %>
+                <a class="btn follow-btn simple-btn" href="/unfollow?uname=<%= username %>&accuname=<%= accusername %>&fname=<%= fullname %>">Unfollow</a>
+                <i class="fas fa-ellipsis-h pro-cog fa-xs" style="padding: 0;" data-toggle="modal" data-target="#myModal"></i>
+            <% } else{ 
+                    if(posts.length===0){
+                %>
+                <a class="btn follow-btn" href="#" style="background-color: #66ABDD;color: white;">Follow</a>
+                <i class="fas fa-ellipsis-h pro-cog fa-xs" style="padding: 0;" data-toggle="modal" data-target="#myModal"></i>
+                <p style="color: red;font-size: 15px;">*You cannot follow this user since the user hasn&#8216;t posted anything.</p>
+                <%}  else {%>
+                <a class="btn btn-primary follow-btn" href="/follow?uname=<%= username %>&accuname=<%= accusername %>&fname=<%= fullname %>">Follow</a>
+                <i class="fas fa-ellipsis-h pro-cog fa-xs" style="padding: 0;" data-toggle="modal" data-target="#myModal"></i>
+            <% }} %>
+            </h2>
+            <p>
+                <span class="stats"><b><%= posts.length %></b> posts</span>
+                <a class="stats" href="/followers?uname=<%= username %>&accuname=<%= accusername %>&fname=<%= fullname %>" style="color: black;"><b><%= followers.length %></b> followers</a>
+                <a class="stats" href="/following?uname=<%= username %>&accuname=<%= accusername %>&fname=<%= fullname %>" style="color: black;"><b><%= following.length %></b> following</a>
+            </p>
+            <h5 class="fname"><b><%= accfullname %></b></h5>
+            <p><%= bio %></p>
+        </div>
+    </div>
+    <div class="row" style="margin: 0;">
+        <div class="col-md-3 profile-sec col-3">
+            <hr width="100%" color="black" class="gv-hr">
+            <p class="grid title"><i class="fas fa-th" style="padding: 0 10px;"></i>POSTS</p>
+        </div>
+        <div class="col-md-3 profile-sec col-3">
+            <hr width="100%" class="sv-hr" color="#eeeeee">
+            <p class="single title"><i class="far fa-image" style="padding: 0 10px;"></i>POSTS</p>
+        </div>
+        <div class="col-md-3 profile-sec col-3" color="#eeeeee">
+            <hr width="100%">
+            <p class="title"><i class="fas fa-tv" style="padding: 0 10px;"></i>IGTV</p>
+        </div>
+        <div class="col-md-3 profile-sec col-3" color="#eeeeee">
+            <hr width="100%">
+            <p class="title"><i class="fas fa-tag" style="padding: 0 10px;"></i>TAGGED</p>
+        </div>
+    </div>
+    <div class="row grid-view" style="margin-right: 0px;margin-left: 0px;">
+        <% posts.forEach(function(image){ %>
+            <div class="col-md-4 your-posts col-4">
+                <center>
+                    <a href="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" data-toggle="lightbox" data-gallery="gallery">
+                    <img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" width="300" height="300" class="preview">
+                    </a>
+                </center>
+            </div>
+        <% }) %>
+    </div>
+
+    <div class="single-view hide-post">
+        <% for(let j=0;j<posts.length;j++){ %>
+            <div class="card post-image mx-auto" style="width:750px">
+                <div class="card-body top-post">
+                    <h3 class="card-text"><img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" alt="profile pic" class="profile-pic-home" height="30" width="30" style="margin: 0 15px;"><a href="#" class="acc-name"><%= accusername %></a><i class="fas fa-ellipsis-h fa-sm" style="float: right;margin-right: 10px;padding-top: 5px;" data-toggle="modal" data-target="#myModal"></i></h3>
+                </div>
+                <img class="card-img-top" src="data:image/<%=posts[j].img.contentType%>;base64,<%=posts[j].img.data.toString('base64')%>" alt="Card image" width="750">
+                <div class="card-body post-content">
+                  <h4 class="card-title"><i class="far fa-heart fa-lg likeBtn"></i><i class="far fa-comment fa-lg"></i><i class="fab fa-telegram-plane fa-lg"></i><i class="far fa-bookmark fa-lg book-home"></i></h4>
+                  <p class="card-text likes"><b><%=posts[j].likes%> likes</b></p>
+                  <p class="card-text content" style="margin-bottom: 5px;"><%=posts[j].caption%></p>
+                  <p class="card-text comm" style="margin-bottom: 5px;" data-toggle="modal" data-target="#Modal<%=j%>">View all <%= posts[j].comments.length %> comments</p>
+                  <%for(let i=0;i<posts[j].comments.length;i++){
+                        if(i>=2)
+                            break;  
+                    %>
+                        <p class="card-text" style="margin-bottom: 5px;"><b><%= posts[j].comments[i].username %></b>&nbsp;&nbsp;<%= posts[j].comments[i].com %></p>
+                    <% } %>
+                </div>
+
+                <div class="modal fade" id="Modal<%=j%>">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content" style="border-radius: 15px;">
+                        <div class="modal-header" style="padding: 5px 10px;">
+                            <h4 class="modal-title">Comments on this post:</h4>
+                            <button type="button" class="close" data-dismiss="modal" style="color: red;">&times;</button>
+                        </div>
+                        <div class="modal-body" style="margin: 5px 0; text-align:left;border: none;padding: none;">
+                            <%for(let i=0;i<posts[j].comments.length;i++){ %>
+                                <p class="card-text" style="margin-bottom: 5px;"><b><%= posts[j].comments[i].username %></b>&nbsp;&nbsp;<%= posts[j].comments[i].com %></p>
+                            <% } %>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="card-body post-content" style="padding: 0 20px 20px 20px;">
+                    <form class="form-inline" action="/comment/findacc" method="POST">
+                        <input class="form-control post-comm" type="text" placeholder="Add a comment..." name="comm"  size="74">
+                        <input type="hidden" name="uname" value="<%= username %>">
+                        <input type="hidden" name="fname" value="<%= fullname %>">
+                        <input type="hidden" name="accuname" value="<%= accusername %>">
+                        <input type="hidden" name="id" value="<%= posts[j]._id %>">
+                        <button type="submit" style="padding-left: 15px;color: royalblue;padding-right: 15px;" class="btn">Post</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+<%- include("partials/mob-nav") -%>
+</body>
+
+<script type="text/javascript">
+    let likeBtn = document.querySelectorAll(".likeBtn");
+    let likeCount = document.querySelectorAll(".likes>b");
+    for(let i=0;i<likeBtn.length;i++){
+        likeBtn[i].addEventListener("click", function(){
+            if(likeBtn[i].classList.contains("far")){
+                likeBtn[i].classList.remove("far");
+                likeBtn[i].classList.add("fas");
+                likeBtn[i].classList.add("liked");
+                let str = likeCount[i].textContent;
+                let c = parseInt(str.split(" "));
+                c++;
+                likeCount[i].textContent = c + " likes";
+            }
+            else{
+                likeBtn[i].classList.remove("fas");
+                likeBtn[i].classList.add("far");
+                likeBtn[i].classList.remove("liked");
+                let str = likeCount[i].textContent;
+                let c = parseInt(str.split(" "));
+                c--;
+                likeCount[i].textContent = c + " likes";
+            }
+        });
+    }
+
+    if ($(window).width() < 550) {
+        $('.home-main').removeClass('container');
+    } else {
+        $('.home-main').addClass('container');
+    }
+
+    $(document).on("click", '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    
+    let g = document.querySelector(".grid");
+    let s = document.querySelector(".single");
+    let gv = document.querySelector(".grid-view");
+    let sv = document.querySelector(".single-view");
+    
+    g.addEventListener("click", function(){
+        sv.classList.add("hide-post");
+        gv.classList.remove("hide-post");
+        document.querySelector(".gv-hr").color = "black";
+        document.querySelector(".sv-hr").color = "#eeeeee";
+    });
+    
+    s.addEventListener("click", function(){
+        gv.classList.add("hide-post");
+        sv.classList.remove("hide-post");
+        document.querySelector(".sv-hr").color = "black";
+        document.querySelector(".gv-hr").color = "#eeeeee";
+    });
+</script>
+</html>

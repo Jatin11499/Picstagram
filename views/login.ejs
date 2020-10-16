@@ -1,0 +1,41 @@
+<%- include("partials/header") -%>
+
+<div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-5 mx-auto">
+        <div class="card log">
+          <div class="card-body">
+            <div class="card-title">
+                <center>
+                    <h1 class="index-head pics" style="font-size: 3rem;">Picstagram</h1>
+                    <h2>Login</h2>
+                </center>
+            </div>
+            <form action="/login" method="POST">
+              <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+              </div>
+              <center>
+                <button type="submit" class="btn btn-primary btn-lg">Log in</button>
+              </center>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+              <div class="card-title" style="margin: 0;">
+                <center>
+                    <p style="margin: 0;">Don't have an account? <a href="/register">Sign Up</a></p>
+                </center>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+</body>
+</html>

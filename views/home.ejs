@@ -1,0 +1,81 @@
+<%- include("partials/header") -%>
+<%- include("partials/nav") -%>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 15px;">
+        <div class="modal-body" style="color: #F10D2C;">
+            Report
+        </div>
+        <div class="modal-body" style="color: #F10D2C;">
+            Unfollow
+        </div>
+        <div class="modal-body" style="color: lightslategrey;">
+            Go to post
+        </div>
+        <div class="modal-body" style="color: lightslategrey;">
+            Share
+        </div>
+        <div class="modal-body" style="color: lightslategrey;">
+            Copy Link
+        </div>
+        <div class="modal-body" style="color: lightslategrey;">
+            Embed
+        </div>
+        <button class="modal-body btn" style="border: none;" data-dismiss="modal" type="button">
+            Cancel
+        </button>
+      </div>
+    </div>
+</div>
+
+<div class="container home-main" style="margin-top:75px;">
+    <% for(let i=0;i<accpostarr.length;i++){ %>
+        <div class="card post-image" style="width:750px">
+            <div class="card-body top-post">
+                <h3 class="card-text"><img src="data:image/<%=accpparr[i].img.contentType%>;base64,<%=accpparr[i].img.data.toString('base64')%>" alt="profile pic" class="profile-pic-home" height="30" width="30" style="margin: 0 15px;"><a href="/open?uname=<%= username %>&fname=<%= fullname %>&acc=<%= accunamearr[i] %>" class="acc-name"><%=accunamearr[i]%></a><i class="fas fa-ellipsis-h fa-sm" style="float: right;margin-right: 10px;padding-top: 5px;" data-toggle="modal" data-target="#myModal"></i></h3>
+            </div>
+            <img class="card-img-top" src="data:image/<%=accpostarr[i].img.contentType%>;base64,<%=accpostarr[i].img.data.toString('base64')%>" alt="Card image" width="750">
+            <div class="card-body post-content">
+              <h4 class="card-title"><i class="far fa-heart fa-lg likeBtn"></i><i class="far fa-comment fa-lg"></i><i class="fab fa-telegram-plane fa-lg"></i><i class="far fa-bookmark fa-lg book-home"></i></h4>
+              <p class="card-text likes"><b><%=accpostarr[i].likes%> likes</b></p>
+              <p class="card-text content" style="margin-bottom: 5px;"><%=accpostarr[i].caption%></p>
+              <p class="card-text comm" style="margin-bottom: 5px;" data-toggle="modal" data-target="#Modal<%=i%>">View all <%= accpostarr[i].comments.length %> comments</p>
+              <%for(let j=0;j<accpostarr[i].comments.length;j++){
+                    if(j>=2)
+                        break;  
+                %>
+                <p class="card-text" style="margin-bottom: 5px;"><b><%= accpostarr[i].comments[j].username %></b>&nbsp;&nbsp;<%= accpostarr[i].comments[j].com %></p>
+              <% } %>
+            </div>
+
+            <div class="modal fade" id="Modal<%=i%>">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content" style="border-radius: 15px;">
+                    <div class="modal-header" style="padding: 5px 10px;">
+                        <h4 class="modal-title">Comments on this post:</h4>
+                        <button type="button" class="close" data-dismiss="modal" style="color: red;">&times;</button>
+                    </div>
+                    <div class="modal-body" style="margin: 5px 0; text-align:left;border: none;padding: none;">
+                        <%for(let j=0;j<accpostarr[i].comments.length;j++){ %>
+                            <p class="card-text" style="margin-bottom: 5px;"><b><%= accpostarr[i].comments[j].username %></b>&nbsp;&nbsp;<%= accpostarr[i].comments[j].com %></p>
+                        <% } %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <div class="home-sec">
+        <img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" alt="profile pic" class="profile-pic-home" height="64" width="64">
+        <a style="margin: 8px 0 8px 20px;color: black;" href="/profile?uname=<%= username %>&fname=<%= fullname %>" class="side-link"><%= username %><br><span style="color: lightslategrey"><%= fullname %></span></a>
+    </div>
+    <div class="home-sec-2">
+        <p>About - Help - Press - API -<br>Jobs - Privacy - Terms - Locations -<br>Top Accounts - Hashtags - Language<br><br>© 2020 PICSTAGRAM FROM<br>JATIN TECKCHANDANI</p>
+    </div>
+</div>
+<%- include("partials/mob-nav") -%>
+</body>
+<script type="text/javascript" src="scripts/like-code.js"></script>
+</html>
